@@ -1,4 +1,4 @@
-module elib/coordinates
+module elib-utils/coordinates
 
   entity Coordinates {
     latitude  :: Float (default=0.0)

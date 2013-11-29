@@ -1,4 +1,4 @@
-module elib/counter
+module elib-utils/counter
 
   function newCounter(): Counter { return Counter{}.init(); }
 

@@ -1,4 +1,4 @@
-module elib/math
+module elib-utils/math
 
   function iff(a: Bool, b: Bool): Bool {
   	return (a && b) || (!a && !b);

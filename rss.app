@@ -1,4 +1,4 @@
-module elib/rss 
+module elib-utils/rss 
 
 section RSS
   

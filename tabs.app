@@ -1,4 +1,4 @@
-module elib/tabs
+module elib-utils/tabs
 
 section tab set
 

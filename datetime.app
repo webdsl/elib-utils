@@ -1,4 +1,4 @@
-module elib/datetime
+module elib-utils/datetime
 
   function latest(t1: DateTime, t2: DateTime): DateTime {
   	if(t1 == null) { return t2; }

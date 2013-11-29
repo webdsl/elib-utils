@@ -1,4 +1,4 @@
-module elib/string
+module elib-utils/string
 
   type String{
     substring(Int,Int):String

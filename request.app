@@ -1,4 +1,4 @@
-module elib/request
+module elib-utils/request
 
 section remote address
 
