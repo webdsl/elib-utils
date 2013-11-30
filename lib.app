@@ -18,6 +18,8 @@ imports elib-utils/list
 
 imports elib-utils/request
 
+imports elib-utils/checkboxWikiText
+
 section ajax lib
 
   define ajax ignore-access-control empty(){}
