@@ -1,4 +1,4 @@
-module elib-utils/pageindex
+module elib/elib-utils/pageindex
 
   define span pageIndexLink(i : Int, lab : String) { 
     "no definition of pageIndexLink" 

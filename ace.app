@@ -1,4 +1,4 @@
-module elib-utils/ace
+module elib/elib-utils/ace
 
 section ace editor
 

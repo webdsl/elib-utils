@@ -1,4 +1,4 @@
-module elib-utils/editable
+module elib/elib-utils/editable
 
 /*
 section conditional editable input fields 

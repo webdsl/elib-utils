@@ -1,4 +1,4 @@
-module elib-utils/checkboxWikiText
+module elib/elib-utils/checkboxWikiText
 
 
 section checkbox 

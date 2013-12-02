@@ -1,4 +1,4 @@
-module elib-utils/wikitext
+module elib/elib-utils/wikitext
 
 define outputRelaxed(s: WikiText){ rawoutput(s) }
 

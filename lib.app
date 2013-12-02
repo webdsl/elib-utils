@@ -1,24 +1,24 @@
-module elib-utils/lib
+module elib/elib-utils/lib
 
-imports elib-utils/math 
-imports elib-utils/pageindex
-imports elib-utils/string
-imports elib-utils/accesscontrol
-imports elib-utils/datetime
-imports elib-utils/markup 
-imports elib-utils/editable
-imports elib-utils/coordinates
-imports elib-utils/modal-dialog
-imports elib-utils/rss
-imports elib-utils/wikitext
-imports elib-utils/counter
-imports elib-utils/ace
-imports elib-utils/tabs
-imports elib-utils/list
+imports elib/elib-utils/math 
+imports elib/elib-utils/pageindex
+imports elib/elib-utils/string
+imports elib/elib-utils/accesscontrol
+imports elib/elib-utils/datetime
+imports elib/elib-utils/markup 
+imports elib/elib-utils/editable
+imports elib/elib-utils/coordinates
+imports elib/elib-utils/modal-dialog
+imports elib/elib-utils/rss
+imports elib/elib-utils/wikitext
+imports elib/elib-utils/counter
+imports elib/elib-utils/ace
+imports elib/elib-utils/tabs
+imports elib/elib-utils/list
 
-imports elib-utils/request
+imports elib/elib-utils/request
 
-imports elib-utils/checkboxWikiText
+imports elib/elib-utils/checkboxWikiText
 
 section ajax lib
 

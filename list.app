@@ -1,4 +1,4 @@
-module elib-utils/list
+module elib/elib-utils/list
 
 //   function isFirst(xs: List<Entity>, x: Entity): Bool {
 //     return xs.indexOf(x) > 0;
