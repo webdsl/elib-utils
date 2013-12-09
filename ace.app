@@ -20,8 +20,10 @@ section ace editor
   define requireACE() {
     includeJS("src/ace.js")
     includeJS("src/mode-scala.js")
+    includeJS("src/mode-java.js")
     includeJS("src/mode-javascript.js")
     includeJS("src/mode-c_cpp.js")
+    includeJS("src/mode-sql.js")
     includeJS("src/theme-eclipse.js") 
     includeJS("initACE.js")
   }
@@ -68,16 +70,26 @@ section ace editor
       		registerOnload(function() { scalaEditor('~id', ~readonly) });
     		</script>
   		}
+  		"java" {
+  			<script>
+      		registerOnload(function() { javaEditor('~id', ~readonly) });
+    		</script>
+  		}
   		"c" {
   			<script>
       		registerOnload(function() { cEditor('~id', ~readonly) });
     		</script>
   		}
 		"js" {
-                        <script>
-                registerOnload(function() { jsEditor('~id', ~readonly) });
-                </script>
-                }
+            <script>
+            registerOnload(function() { jsEditor('~id', ~readonly) });
+            </script>
+      	}
+      	"sql" {
+            <script>
+            registerOnload(function() { sqlEditor('~id', ~readonly) });
+            </script>
+      	}
   	}
     // <script>
     //   registerOnload(function() { scalaEditor('~id', ~readonly) });
