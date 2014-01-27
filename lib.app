@@ -19,6 +19,7 @@ imports elib/elib-utils/list
 imports elib/elib-utils/request
 
 imports elib/elib-utils/checkboxWikiText
+imports elib/elib-utils/geo
 
 section ajax lib
 
