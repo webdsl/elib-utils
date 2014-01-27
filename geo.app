@@ -1,4 +1,4 @@
-module elib/elib-utils/lib
+module elib/elib-utils/geo
 
 section functions
 
