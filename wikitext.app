@@ -10,16 +10,16 @@ section input wikitext with a preview
 */
 define inputWithPreview( txt : Ref<WikiText> ){
 	var owningEntity := txt.getEntity();
-	var ph := "ph-" + (if(owningEntity != null) owningEntity.id else "");
+	var ph := "ph-" + (if(owningEntity != null) owningEntity.id.toString() else "");
 	action ignore-validation updatePreview(){
 		replace( ""+ph, wikiTextPreviewInternal(txt) );
 	}
 	input( txt )[onkeyup:=updatePreview()]
 }
 
-define wikiTextPreview( txt : WikiText ){
+define wikiTextPreview( txt : Ref<WikiText> ){
 	var owningEntity := txt.getEntity();
-	var ph := "ph-" + (if(owningEntity != null) owningEntity.id else "");
+	var ph := "ph-" + (if(owningEntity != null) owningEntity.id.toString() else "");
 	placeholder ""+ph{ wikiTextPreviewInternal( txt ) }
 }
 
