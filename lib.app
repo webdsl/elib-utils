@@ -12,7 +12,6 @@ imports elib/elib-utils/modal-dialog
 imports elib/elib-utils/rss
 imports elib/elib-utils/wikitext
 imports elib/elib-utils/counter
-imports elib/elib-utils/ace
 imports elib/elib-utils/tabs
 imports elib/elib-utils/list
 
