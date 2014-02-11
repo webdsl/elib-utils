@@ -6,6 +6,15 @@ section markup
   template header2(){ <h2> elements </h2> }
   template header3(){ <h3> elements </h3> }
   template header4(){ <h4> elements </h4> }
+  template header5(){ <h5> elements </h5> }
+  template header6(){ <h6> elements </h6> }
+  
+  template anchorHeader1(){ var hashtext:=/\W/.replaceAll("-", rendertemplate(elements)); <h1><a href="#"+hashtext style="text-decoration:inherit; color:inherit;" name=hashtext class="anchor">elements</a></h1>}
+  template anchorHeader2(){ var hashtext:=/\W/.replaceAll("-", rendertemplate(elements)); <h2><a href="#"+hashtext style="text-decoration:inherit; color:inherit;" name=hashtext class="anchor">elements</a></h2>}
+  template anchorHeader3(){ var hashtext:=/\W/.replaceAll("-", rendertemplate(elements)); <h3><a href="#"+hashtext style="text-decoration:inherit; color:inherit;" name=hashtext class="anchor">elements</a></h3>}
+  template anchorHeader4(){ var hashtext:=/\W/.replaceAll("-", rendertemplate(elements)); <h4><a href="#"+hashtext style="text-decoration:inherit; color:inherit;" name=hashtext class="anchor">elements</a></h4>}
+  template anchorHeader5(){ var hashtext:=/\W/.replaceAll("-", rendertemplate(elements)); <h5><a href="#"+hashtext style="text-decoration:inherit; color:inherit;" name=hashtext class="anchor">elements</a></h5>}
+  template anchorHeader6(){ var hashtext:=/\W/.replaceAll("-", rendertemplate(elements)); <h6><a href="#"+hashtext style="text-decoration:inherit; color:inherit;" name=hashtext class="anchor">elements</a></h6>}         
   
   template hrule(){ <hr /> }
   
