@@ -17,6 +17,7 @@ define inputWithPreview( txt : Ref<WikiText>, unsafe : Bool ){
 	var ph := "ph-" + (if(owningEntity != null) owningEntity.id.toString() else "");
 	action ignore-validation updatePreview(){
 		replace( ""+ph, wikiTextPreviewInternal(txt, unsafe) );
+		rollback();
 	}
 	input( txt )[onkeyup:=updatePreview(), all attributes]
 }
