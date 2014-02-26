@@ -10,7 +10,7 @@ section input wikitext with a preview
 */
 
 define inputWithPreview( txt : Ref<WikiText> ){
-	inputWithPreview( txt, false )
+	inputWithPreview( txt, false )[all attributes]
 }
 define inputWithPreview( txt : Ref<WikiText>, unsafe : Bool ){
 	var owningEntity := txt.getEntity();
@@ -18,7 +18,7 @@ define inputWithPreview( txt : Ref<WikiText>, unsafe : Bool ){
 	action ignore-validation updatePreview(){
 		replace( ""+ph, wikiTextPreviewInternal(txt, unsafe) );
 	}
-	input( txt )[onkeyup:=updatePreview()]
+	input( txt )[onkeyup:=updatePreview(), all attributes]
 }
 
 define wikiTextPreview( txt : Ref<WikiText> ){
