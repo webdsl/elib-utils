@@ -22,18 +22,16 @@ define inputWithPreview( txt : Ref<WikiText>, unsafe : Bool ){
 }
 
 define wikiTextPreview( txt : Ref<WikiText> ){
-	var owningEntity := txt.getEntity();
-	var ph := "ph-" + (if(owningEntity != null) owningEntity.id.toString() else "");
-	placeholder ""+ph{ wikiTextPreviewInternal( txt ) }
+	wikiTextPreview( txt, false )
 }
 define wikiTextPreview( txt : Ref<WikiText>, unsafe : Bool  ){
 	var owningEntity := txt.getEntity();
 	var ph := "ph-" + (if(owningEntity != null) owningEntity.id.toString() else "");
-	placeholder ""+ph{ wikiTextPreviewInternal( txt ) }
+	placeholder ""+ph{ wikiTextPreviewInternal( txt, unsafe ) }
 }
 
 define ajax ignore-access-control wikiTextPreviewInternal( txt : WikiText, unsafe : Bool ){
-	if( raw ){
+	if( unsafe ){
 		rawoutput( txt )
 	} else {
 		output( txt )
