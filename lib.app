@@ -14,9 +14,6 @@ imports elib/elib-utils/wikitext
 imports elib/elib-utils/counter
 imports elib/elib-utils/tabs
 imports elib/elib-utils/list
-
-imports elib/elib-utils/request
-
 imports elib/elib-utils/checkboxWikiText
 imports elib/elib-utils/geo
 
