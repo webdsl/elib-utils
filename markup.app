@@ -20,6 +20,25 @@ section markup
   
 //  template par() { <p> elements </p> }
 
+section dynamic styling
+
+template contrastText(itemClass : String){
+	<script>
+	    $('.~itemClass').each(function(){
+		    var rgb = $(this).css( "background-color" ).match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+		    
+		    //http://www.w3.org/TR/AERT#color-contrast		    
+		    var o = Math.round(((parseInt(rgb[1]) * 299) + (parseInt(rgb[2]) * 587) + (parseInt(rgb[3]) * 114)) /1000);
+		    
+		    if(o > 125) {
+		        $(this).css('color', 'black');
+		    }else{ 
+		        $(this).css('color', 'white');
+		    }
+		});
+	</script>
+}
+
 section forms
 
   // define formEntry(l: String){ 
