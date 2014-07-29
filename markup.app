@@ -22,9 +22,9 @@ section markup
 
 section dynamic styling
 
-template contrastText(itemClass : String){
+template contrastText(jquerySelector : String){
 	<script>
-	    $('.~itemClass').each(function(){
+	    $('~jquerySelector').each(function(){
 		    var rgb = $(this).css( "background-color" ).match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
 		    
 		    //http://www.w3.org/TR/AERT#color-contrast		    
