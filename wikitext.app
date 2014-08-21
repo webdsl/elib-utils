@@ -33,7 +33,7 @@ define inputWithPreview( txt : Ref<WikiText>, unsafe : Bool, ph : String){
 	input( txt )[oninput:=updatePreview(), all attributes]
 	}
 	div{
-		<input type="checkbox" id=ph+"-hwtoggle"> "Use hardwraps" </input>
+		<input type="checkbox" id=ph+"-hwtoggle"> " Preserve new lines" </input>
 		" " markdownHelpLink
 	}
 	<script>
