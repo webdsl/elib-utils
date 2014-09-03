@@ -18,6 +18,10 @@ define inputWithPreview( txt : Ref<WikiText>, unsafe : Bool){
 	inputWithPreview( txt, false, ph )[all attributes]
 	
 }
+
+native class utils.BuildProperties as BuildProperties {
+	static isWikitextHardwrapsEnabled() : Bool
+}
 define inputWithPreview( txt : Ref<WikiText>, unsafe : Bool, ph : String){
 	var hardWrapToggle := !(/^<!--(DISABLE_HARDWRAPS|NO_HARDWRAPS)-->/.find(txt));
 	var sm := "<";
@@ -33,27 +37,27 @@ define inputWithPreview( txt : Ref<WikiText>, unsafe : Bool, ph : String){
 	input( txt )[oninput:=updatePreview(), all attributes]
 	}
 	div{
-		<input type="checkbox" id=ph+"-hwtoggle"> " Preserve new lines" </input>
-		" " markdownHelpLink
+		// <input type="checkbox" id=ph+"-hwtoggle"> " Preserve new lines" </input> " "
+		markdownHelpLink " " span[class="hardwraps-info"]{ if(BuildProperties.isWikitextHardwrapsEnabled()){ "New lines are preserved (hardwraps enabled)" } else { "Single new lines are ignored (hardwraps disabled)" } }
 	}
-	<script>
-		$('#~ph'+'-hwtoggle').prop('checked', ~hardWrapToggle);
-		$('#~ph'+'-hwtoggle').change(function() {
-			var input = $('#~(ph)' + '-wrap textarea');
-			var currentVal = input.val();
-	        if($(this).is(":checked")) {
-	            var newVal = currentVal.replace(/^~sm!--(DISABLE_HARDWRAPS|NO_HARDWRAPS)-->[\r\n]?/,"")
-	            input.val(newVal);
-	            input.trigger('oninput');
-	        } else {
-	        	if(!( /^~sm!--(DISABLE_HARDWRAPS|NO_HARDWRAPS)-->/.test(currentVal) )){
-		            var newVal = '~sm!--DISABLE_HARDWRAPS-->\n'+currentVal;
-		            input.val(newVal);
-		            input.trigger('oninput');
-	            }
-	        }     
-	    });
-	</script>
+	// <script>
+	// 	$('#~ph'+'-hwtoggle').prop('checked', ~hardWrapToggle);
+	// 	$('#~ph'+'-hwtoggle').change(function() {
+	// 		var input = $('#~(ph)' + '-wrap textarea');
+	// 		var currentVal = input.val();
+	//         if($(this).is(":checked")) {
+	//             var newVal = currentVal.replace(/^~sm!--(DISABLE_HARDWRAPS|NO_HARDWRAPS)-->[\r\n]?/,"")
+	//             input.val(newVal);
+	//             input.trigger('oninput');
+	//         } else {
+	//         	if(!( /^~sm!--(DISABLE_HARDWRAPS|NO_HARDWRAPS)-->/.test(currentVal) )){
+	// 	            var newVal = '~sm!--DISABLE_HARDWRAPS-->\n'+currentVal;
+	// 	            input.val(newVal);
+	// 	            input.trigger('oninput');
+	//             }
+	//         }     
+	//     });
+	// </script>
 }
 
 define wikiTextPreview( txt : Ref<WikiText> ){
