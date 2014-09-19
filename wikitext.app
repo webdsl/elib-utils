@@ -15,7 +15,7 @@ define inputWithPreview( txt : Ref<WikiText> ){
 define inputWithPreview( txt : Ref<WikiText>, unsafe : Bool){
 	var owningEntity := txt.getEntity();
 	var ph := if(owningEntity.version < 1) "wikitext-preview" else "ph-" + (if(owningEntity != null) owningEntity.id.toString() else "");
-	inputWithPreview( txt, false, ph )[all attributes]
+	inputWithPreview( txt, unsafe, ph )[all attributes]
 	
 }
 
@@ -23,8 +23,8 @@ native class utils.BuildProperties as BuildProperties {
 	static isWikitextHardwrapsEnabled() : Bool
 }
 define inputWithPreview( txt : Ref<WikiText>, unsafe : Bool, ph : String){
-	var hardWrapToggle := !(/^<!--(DISABLE_HARDWRAPS|NO_HARDWRAPS)-->/.find(txt));
-	var sm := "<";
+	// var hardWrapToggle := !(/^<!--(DISABLE_HARDWRAPS|NO_HARDWRAPS)-->/.find(txt));
+	// var sm := "<";
 	
 	action ignore-validation updatePreview(){
 		replace( ""+ph, wikiTextPreviewInternal(txt, unsafe) );
