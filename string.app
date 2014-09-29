@@ -151,3 +151,44 @@ module elib/elib-utils/string
     }
     */
   }
+  
+section live preview on text
+
+define inputWithPreview( txt : Ref<Text> ){
+	inputWithPreview(txt, false)
+}
+
+define inputWithPreview( txt : Ref<Text>, rawoutput : Bool ){
+	var owningEntity := txt.getEntity();
+	var ph := if(owningEntity.version < 1) "html-preview" else "ph-" + (if(owningEntity != null) owningEntity.id.toString() else "");
+	inputWithPreview( txt, rawoutput, ph )[all attributes]
+}
+
+define inputWithPreview( txt : Ref<Text>, rawoutput : Bool, ph : String){
+	action ignore-validation updatePreview(){
+		replace( ""+ph, livePreviewInternal(txt, rawoutput) );
+		rollback();
+	}
+	input( txt )[oninput:=updatePreview(), all attributes]
+}
+
+define livePreview( txt : Ref<Text> ){
+	livePreview(txt, false)
+}
+
+define livePreview( txt : Ref<Text>,  rawoutput : Bool ){
+	var owningEntity := txt.getEntity();
+	var ph := if(owningEntity.version < 1) "html-preview" else "ph-" + (if(owningEntity != null) owningEntity.id.toString() else "");
+	livePreview(txt, rawoutput, ph)	
+}
+define livePreview( txt : Ref<Text>, rawoutput : Bool, ph : String){
+	placeholder ""+ph{ livePreviewInternal( txt, rawoutput ) }
+}
+
+define ajax ignore-access-control livePreviewInternal( txt : Text, rawoutput : Bool ){
+	if( rawoutput ){
+		rawoutput( txt )
+	} else {
+		output( txt )
+	}
+}
