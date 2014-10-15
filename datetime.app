@@ -116,6 +116,13 @@ module elib/elib-utils/datetime
   function diffDays(t1: DateTime, t2 : DateTime): Long {
   	return diffHours(t1, t2) / 24L;
   }
+  function diffDateDays(t1: DateTime, t2 : DateTime): Long {
+  	var normalized1 := DateTime( t1.getDay() + "-" + t1.getMonth() + "-" + t1.getYear() + " 12:00", "d-M-yyyy HH:mm");
+  	var normalized2 := DateTime( t2.getDay() + "-" + t2.getMonth() + "-" + t2.getYear() + " 12:00", "d-M-yyyy HH:mm");
+  	var day1 := normalized1.getTime() / (24L*60L*60L*1000L);
+  	var day2 := normalized2.getTime() / (24L*60L*60L*1000L);
+  	return day1 - day2;
+  }
   
   native class java.sql.Timestamp as Timestamp : DateTime {
     constructor(Int)
