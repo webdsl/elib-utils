@@ -25,9 +25,10 @@ native class utils.BuildProperties as BuildProperties {
 define inputWithPreview( txt : Ref<WikiText>, unsafe : Bool, ph : String){
 	// var hardWrapToggle := !(/^<!--(DISABLE_HARDWRAPS|NO_HARDWRAPS)-->/.find(txt));
 	// var sm := "<";
+	var mathjaxHelpHTML := ", <a href='http://docs.mathjax.org/en/latest/mathjax.html'>MathJax</a> enabled, with delimiters: <code>\\\\\\\\( inline \\\\\\\\)</code> and <code>$$ block $$</code>."
 	
 	action ignore-validation updatePreview(){
-		replace( ""+ph, wikiTextPreviewInternal(txt, unsafe) );
+		replace( ""+ph, wikiTextPreviewInternal(txt, unsafe, ph) );
 		rollback();
 	}
 	action ignore-validation toggleHW(){
@@ -39,6 +40,12 @@ define inputWithPreview( txt : Ref<WikiText>, unsafe : Bool, ph : String){
 	div{
 		// <input type="checkbox" id=ph+"-hwtoggle"> " Preserve new lines" </input> " "
 		markdownHelpLink " " span[class="hardwraps-info"]{ if(BuildProperties.isWikitextHardwrapsEnabled()){ "New lines are preserved (hardwraps enabled)" } else { "Single new lines are ignored (hardwraps disabled)" } }
+		span[id="mathjax-"+ph]{}
+		<script>
+			if (typeof MathJax != "undefined"){
+				$("#mathjax-~ph").append( "~mathjaxHelpHTML" );
+			}
+		</script>
 	}
 	// <script>
 	// 	$('#~ph'+'-hwtoggle').prop('checked', ~hardWrapToggle);
@@ -65,20 +72,25 @@ define wikiTextPreview( txt : Ref<WikiText> ){
 
 }
 define wikiTextPreview( txt : Ref<WikiText>, unsafe : Bool ){
-	var owningEntity := txt.getEntity();
-	var ph := if(owningEntity.version < 1) "wikitext-preview" else "ph-" + (if(owningEntity != null) owningEntity.id.toString() else "");
+	var owningEntity := txt.getEntity()
+	var ph := if(owningEntity.version < 1) "wikitext-preview" else "ph-" + (if(owningEntity != null) owningEntity.id.toString() else "")
 	wikiTextPreview(txt, unsafe, ph)	
 }
 define wikiTextPreview( txt : Ref<WikiText>, unsafe : Bool, ph : String){
-	placeholder ""+ph{ wikiTextPreviewInternal( txt, unsafe ) }
+	placeholder ""+ph{ wikiTextPreviewInternal( txt, unsafe, ph ) }
 }
 
-define ajax ignore-access-control wikiTextPreviewInternal( txt : WikiText, unsafe : Bool ){
+define ajax ignore-access-control wikiTextPreviewInternal( txt : WikiText, unsafe : Bool, placeholder : String){
 	if( unsafe ){
 		rawoutput( txt )
 	} else {
 		output( txt )
 	}
+	<script>
+		if (typeof MathJax != "undefined"){
+			MathJax.Hub.Queue(["Typeset",MathJax.Hub, "~placeholder"]);
+		}
+	</script>
 }
 
 
