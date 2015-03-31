@@ -1,5 +1,10 @@
 module elib/elib-utils/wikitext
 
+access control rules
+rule page liveWikiTextPreview(){ true }
+
+section templates
+
 define outputRelaxed(s: WikiText){ rawoutput(s) }
 
 section input wikitext with a preview
@@ -23,22 +28,13 @@ native class utils.BuildProperties as BuildProperties {
 	static isWikitextHardwrapsEnabled() : Bool
 }
 define inputWithPreview( txt : Ref<WikiText>, unsafe : Bool, ph : String){
-	// var hardWrapToggle := !(/^<!--(DISABLE_HARDWRAPS|NO_HARDWRAPS)-->/.find(txt));
-	// var sm := "<";
 	var mathjaxHelpHTML := ", <a href='http://docs.mathjax.org/en/latest/mathjax.html'>MathJax</a> enabled, with delimiters: <code>\\\\\\\\( inline \\\\\\\\)</code> and <code>$$ block $$</code>."
-	
-	action ignore-validation updatePreview(){
-		replace( ""+ph, wikiTextPreviewInternal(txt, unsafe, ph) );
-		rollback();
-	}
-	action ignore-validation toggleHW(){
-		
-	}
+	var liveprevservice := navigate(liveWikiTextPreview())
+	var jsonParams := "[{name:'inputText', value:$('#" + ph + "-wrap textarea').val()}" + ( if(unsafe) ",{name:'allowUnsafe', value:'1'}]" else "]")
 	span[id=ph+"-wrap"]{
-	input( txt )[oninput:=updatePreview(), all attributes]
+		input( txt )[oninput:="replaceWithoutAction('" + liveprevservice + "', " + jsonParams + ", '" + ph + "');", all attributes]
 	}
 	div{
-		// <input type="checkbox" id=ph+"-hwtoggle"> " Preserve new lines" </input> " "
 		markdownHelpLink " " span[class="hardwraps-info"]{ if(BuildProperties.isWikitextHardwrapsEnabled()){ "New lines are preserved (hardwraps enabled)" } else { "Single new lines are ignored (hardwraps disabled)" } }
 		span[id="mathjax-"+ph]{}
 		<script>
@@ -47,24 +43,6 @@ define inputWithPreview( txt : Ref<WikiText>, unsafe : Bool, ph : String){
 			}
 		</script>
 	}
-	// <script>
-	// 	$('#~ph'+'-hwtoggle').prop('checked', ~hardWrapToggle);
-	// 	$('#~ph'+'-hwtoggle').change(function() {
-	// 		var input = $('#~(ph)' + '-wrap textarea');
-	// 		var currentVal = input.val();
-	//         if($(this).is(":checked")) {
-	//             var newVal = currentVal.replace(/^~sm!--(DISABLE_HARDWRAPS|NO_HARDWRAPS)-->[\r\n]?/,"")
-	//             input.val(newVal);
-	//             input.trigger('oninput');
-	//         } else {
-	//         	if(!( /^~sm!--(DISABLE_HARDWRAPS|NO_HARDWRAPS)-->/.test(currentVal) )){
-	// 	            var newVal = '~sm!--DISABLE_HARDWRAPS-->\n'+currentVal;
-	// 	            input.val(newVal);
-	// 	            input.trigger('oninput');
-	//             }
-	//         }     
-	//     });
-	// </script>
 }
 
 define wikiTextPreview( txt : Ref<WikiText> ){
@@ -77,22 +55,28 @@ define wikiTextPreview( txt : Ref<WikiText>, unsafe : Bool ){
 	wikiTextPreview(txt, unsafe, ph)	
 }
 define wikiTextPreview( txt : Ref<WikiText>, unsafe : Bool, ph : String){
-	placeholder ""+ph{ wikiTextPreviewInternal( txt, unsafe, ph ) }
+	placeholder ""+ph{  wikiTextPreviewInternal( txt, unsafe ) } 
 }
 
-define ajax ignore-access-control wikiTextPreviewInternal( txt : WikiText, unsafe : Bool, placeholder : String){
+define ignore-access-control wikiTextPreviewInternal( txt : WikiText, unsafe : Bool){
 	if( unsafe ){
 		rawoutput( txt )
 	} else {
 		output( txt )
 	}
-	<script>
+}
+
+page liveWikiTextPreview(){
+	mimetype("text/plain")
+	var toRender := (getRequestParameter("inputText") as WikiText)
+	var scriptId := getTemplate().getUniqueId()
+	wikiTextPreviewInternal(toRender, getRequestParameter("allowUnsafe") != null)
+	<script id=scriptId>
 		if (typeof MathJax != "undefined"){
-			MathJax.Hub.Queue(["Typeset",MathJax.Hub, "~placeholder"]);
+			MathJax.Hub.Queue(["Typeset",MathJax.Hub, $('#~scriptId').parent().attr('id')]);
 		}
 	</script>
 }
-
 
 template markdownHelpLink(){
 	navigate url("https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet")[target:="_blank", title:="Opens in new window"]{iQuestionSign() " Syntax Help"}
