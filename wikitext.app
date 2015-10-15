@@ -69,7 +69,7 @@ define ignore-access-control wikiTextPreviewInternal( txt : WikiText, unsafe : B
 page liveWikiTextPreview(){
 	mimetype("text/plain")
 	var toRender := (getRequestParameter("inputText") as WikiText)
-	var scriptId := getTemplate().getUniqueId()
+	var scriptId := "preview-" + now().getTime()
 	wikiTextPreviewInternal(toRender, getRequestParameter("allowUnsafe") != null)
 	<script id=scriptId>
 		if (typeof MathJax != "undefined"){
