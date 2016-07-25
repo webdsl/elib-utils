@@ -104,6 +104,14 @@ module elib/elib-utils/string
     if(x == null) { return ""; } else { return x; }
   }
   
+  function prefixSuffix(s : String, prefixLen : Int, suffixLen : Int) : String{
+  	if(s.length() <= (prefixLen + suffixLen+4)){
+  		return s;
+  	} else {
+  		return prefix(s,prefixLen) + "... " + suffix(s,suffixLen);
+  	}
+  }
+  
   function abbreviate(s : String, length : Int) : String {
     if(s.length() <= length) {
       return s;
@@ -150,6 +158,10 @@ module elib/elib-utils/string
       return prefix(sChar.concat(), length);
     }
     */
+  }
+  function suffix(s : String, length : Int) : String {
+  	var len := s.length();
+  	return s.substring(s.length()-min(length, len), s.length());
   }
   
 section live preview on text
