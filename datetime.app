@@ -15,20 +15,26 @@ module elib/elib-utils/datetime
   function age(now: DateTime, time : DateTime) : String {
     var thenTime : Long := time.getTime();
     var nowTime : Long := now.getTime();
+    var sign := "";
     var interval : Long := (nowTime - thenTime) / 60000L;
-    if(interval < 2)  { return "one minute"; }
-    if(interval < 60) { return interval + " minutes"; }
-    if(interval < 120) { return  "one hour"; }
+    if(interval < 0){
+    	sign := "-";
+    	interval := 0-interval;
+    }
+    
+    if(interval < 2)  { return sign + "1 minute"; }
+    if(interval < 100) { return sign + interval + " minutes"; }
+    if(interval < 120) { return  sign + "2 hours"; }
     interval := interval / 60L;
-    if(interval < 24) { return interval + " hours"; }
-    if(interval < 36) { return "1 day"; }
-    if(interval < 48) { return "2 days"; }
+    if(interval < 24) { return sign + interval + " hours"; }
+    if(interval < 36) { return sign + "1 day"; }
+    if(interval < 48) { return sign + "2 days"; }
     interval := interval / 24L;
-    if(interval <= 30) { return interval + " days"; }
+    if(interval <= 30) { return sign + interval + " days"; }
     interval := 1 + interval / 30L;
-    if(interval <= 12) { return interval + " months"; }
+    if(interval <= 12) { return sign + interval + " months"; }
     interval := interval / 12L;
-    return interval + " years";
+    return sign + interval + " years";
   }
   
   function age(time : DateTime) : String {
