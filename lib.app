@@ -22,6 +22,7 @@ section ajax lib
   define ajax ignore-access-control empty(){}
   
   	native class java.lang.StringBuffer as StringBuffer{
+  	  constructor(String)
   		toString() : String
   		append(String) : StringBuffer
   	}
