@@ -18,8 +18,8 @@ define inputWithPreview( txt : Ref<WikiText> ){
 	inputWithPreview( txt, false )[all attributes]
 }
 define inputWithPreview( txt : Ref<WikiText>, unsafe : Bool){
-	var owningEntity := txt.getEntity();
-	var ph := if(owningEntity.version < 1) "wikitext-preview" else "ph-" + (if(owningEntity != null) owningEntity.id.toString() else "");
+	var owningEntity := txt.getEntity()
+	var ph := if(owningEntity.version < 1) "wikitext-preview" else "ph-" + (if(owningEntity != null) owningEntity.id.toString() else "")
 	inputWithPreview( txt, unsafe, ph )[all attributes]
 	
 }
@@ -71,11 +71,23 @@ page liveWikiTextPreview(){
 	var toRender := (getRequestParameter("inputText") as WikiText)
 	var scriptId := "preview-" + now().getTime()
 	wikiTextPreviewInternal(toRender, getRequestParameter("allowUnsafe") != null)
-	<script id=scriptId>
-		if (typeof MathJax != "undefined"){
-			MathJax.Hub.Queue(["Typeset",MathJax.Hub, $('#~scriptId').parent().attr('id')]);
-		}
-	</script>
+
+//The following script is not needed anymore when using postProcess template, e.g.
+//postProcess("Prism.highlightAll( node ); if(node != document){ MathJax.Hub.Queue([\"Typeset\",MathJax.Hub, node]); }")
+
+	// <script id=scriptId>
+	// var mathJaxEnabled = typeof MathJax != "undefined";
+	// var prismEnabled = typeof Prism != "undefined";
+	// if (mathJaxEnabled || prismEnabled){
+	//   var parent = $('#~scriptId').parent();
+	//   if(mathJaxEnabled){
+	//     MathJax.Hub.Queue(["Typeset",MathJax.Hub, parent.get()]);
+	//   }
+	//   if(prismEnabled){
+	//     Prism.highlightAll( parent );
+	//   }
+	// }
+	// </script>
 }
 
 template markdownHelpLink(){
