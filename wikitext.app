@@ -72,7 +72,7 @@ page liveWikiTextPreview(){
 	var scriptId := "preview-" + now().getTime()
 	wikiTextPreviewInternal(toRender, getRequestParameter("allowUnsafe") != null)
 
-//The following script is not needed anymore when using postProcess template, e.g.
+//The following script is not needed anymore (requires WebDSL version > 13 Feb 2017) when using postProcess template, e.g.
 //postProcess("Prism.highlightAll( node ); if(node != document){ MathJax.Hub.Queue([\"Typeset\",MathJax.Hub, node]); }")
 
 	// <script id=scriptId>
