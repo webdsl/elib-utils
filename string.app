@@ -113,10 +113,15 @@ module elib/elib-utils/string
   }
   
   function abbreviate(s : String, length : Int) : String {
+    return abbreviate(s, length, true);
+  }
+  
+  function abbreviate(s : String, length : Int, hardbreak : Bool) : String {
     if(s.length() <= length) {
       return s;
     } else {
-      return prefix(s, length - 4) + " ...";
+      var abbr := if(hardbreak) prefix(s, length - 4) else /\S+$/.replaceAll("", prefix(s, length - 4));
+      return abbr + " ...";
     }
   }
   
