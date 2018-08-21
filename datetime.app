@@ -130,6 +130,47 @@ module elib/elib-utils/datetime
   	return day1 - day2;
   }
   
+  function easterDayOfYear( year : Int ) : Int{
+    case(year){
+      2014{ return 110; }
+      2015{ return 95;  }
+      2016{ return 87;  }
+      2017{ return 106; }
+      2018{ return 91;  }
+      2019{ return 111; }
+      2020{ return 103; }
+      2021{ return 94;  }
+      2022{ return 107; }
+      2023{ return 99;  }
+      2024{ return 91;  }
+      2025{ return 110; }
+      2026{ return 95;  }
+      2027{ return 87;  }
+      default{ return -1; }
+    }
+  }
+  
+  //Based on server time, it returns true for weekend days (Sa+Sun) and Easter, Good Friday, Ascension Day, Ascension, Christmass and new years day
+  //When working hours are considered, it returns true from 18.00 to 7.59
+  function isRestDay( considerWorkingHours : Bool ) : Bool{
+    var now := now();
+    var easterDayOfYear := easterDayOfYear( now.getYear() );
+    var doy := now.getDayOfYear();
+    
+    var d := now.getDay();
+    var m := now.getMonth();    
+    var day := now.format("EEE").toLowerCase();
+    var hour := now.getHour();
+    var restTime := considerWorkingHours && (hour < 8 || hour > 17);
+    return restTime || day == "sat"
+        || day == "sun"
+        || doy+2 == easterDayOfYear || doy == easterDayOfYear || doy-1 == easterDayOfYear //Good Friday, Easter
+        || doy == easterDayOfYear+39 || doy == easterDayOfYear+49 || doy == easterDayOfYear+50 //Ascension day, Ascension
+        || ( d == 5 && m == 5)  // lib day
+        || ( d == 1 && m == 1)  // new year
+        || ( (d == 25 || d == 26) && m == 12); //christmass   
+  }
+  
   native class java.sql.Timestamp as Timestamp : DateTime {
     constructor(Int)
   }
