@@ -169,6 +169,13 @@ module elib/elib-utils/string
   	return s.substring(s.length()-min(length, len), s.length());
   }
   
+	function plural(singular : String, num : Int ) : String{
+	  return if(num == 1) singular else singular + "s";
+	}
+	function plural(singular : String, plural : String, num : Int) : String{
+	  return if(num == 1) singular else plural;
+	}
+  
 section live preview on text
 
 define inputWithPreview( txt : Ref<Text> ){
