@@ -111,12 +111,12 @@ module elib/elib-utils/datetime
   	return t1.getTime() - t2.getTime();
   }
   
-  function diffMinnutes(t1: DateTime, t2 : DateTime): Long {
+  function diffMinutes(t1: DateTime, t2 : DateTime): Long {
   	return diff(t1, t2) / (1000L * 60L);
   }
   
   function diffHours(t1: DateTime, t2 : DateTime): Long {
-  	return diffMinnutes(t1, t2) / 60L;
+  	return diffMinutes(t1, t2) / 60L;
   }
   
   function diffDays(t1: DateTime, t2 : DateTime): Long {
