@@ -38,6 +38,9 @@ module elib/elib-utils/string
   }
   
   function commentOut(comm: String, x: String): String {
+  	// When the text is empty or contains only whitespace,
+  	// do not comment out anything and just return an empty string.
+  	if (isEmptyString(x)) { return ""; }
   	return text(prefix(comm, lines(x)));
   }
   
