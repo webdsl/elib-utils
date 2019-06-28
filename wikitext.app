@@ -17,9 +17,10 @@ section input wikitext with a preview
 define inputWithPreview( txt : Ref<WikiText> ){
 	inputWithPreview( txt, false )[all attributes]
 }
+
 define inputWithPreview( txt : Ref<WikiText>, unsafe : Bool){
-	var owningEntity := txt.getEntity()
-	var ph := if(owningEntity.version < 1) "wikitext-preview" else "ph-" + (if(owningEntity != null) owningEntity.id.toString() else "")
+  var owningEntity := txt.getEntity()
+  var ph := if(owningEntity == null || owningEntity.version < 1) "wikitext-preview" else "ph-" + owningEntity.id.toString() + "-" + txt.getReflectionProperty().getName()
 	inputWithPreview( txt, unsafe, ph )[all attributes]
 	
 }
@@ -34,12 +35,12 @@ define inputWithPreview( txt : Ref<WikiText>, unsafe : Bool, ph : String){
 	span[id=ph+"-wrap"]{
 		input( txt )[oninput:="replaceWithoutAction('" + liveprevservice + "', " + jsonParams + ", '" + ph + "');", all attributes]
 	}
-	div{
+	div[class="help-block"]{
 		markdownHelpLink " " span[class="hardwraps-info"]{ if(BuildProperties.isWikitextHardwrapsEnabled()){ "New lines are preserved (hardwraps enabled)" } else { "Single new lines are ignored (hardwraps disabled)" } }
-		span[id="mathjax-"+ph]{}
+		span[id="mathjax-"+id]{}
 		<script>
 			if (typeof MathJax != "undefined"){
-				$("#mathjax-~ph").append( "~mathjaxHelpHTML" );
+				$("#mathjax-~id").append( "~mathjaxHelpHTML" );
 			}
 		</script>
 	}
@@ -51,7 +52,7 @@ define wikiTextPreview( txt : Ref<WikiText> ){
 }
 define wikiTextPreview( txt : Ref<WikiText>, unsafe : Bool ){
 	var owningEntity := txt.getEntity()
-	var ph := if(owningEntity.version < 1) "wikitext-preview" else "ph-" + (if(owningEntity != null) owningEntity.id.toString() else "")
+	var ph := if(owningEntity == null || owningEntity.version < 1) "wikitext-preview" else "ph-" + owningEntity.id.toString() + "-" + txt.getReflectionProperty().getName()
 	wikiTextPreview(txt, unsafe, ph)	
 }
 define wikiTextPreview( txt : Ref<WikiText>, unsafe : Bool, ph : String){
