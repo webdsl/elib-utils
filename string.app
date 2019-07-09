@@ -178,6 +178,9 @@ module elib/elib-utils/string
 	function plural(singular : String, plural : String, num : Int) : String{
 	  return if(num == 1) singular else plural;
 	}
+	function capitalize(name : String) : String{
+	  return if( name.length() > 0 ) name.substring( 0,1 ).toUpperCase() + name.substring( 1, name.length() ) else name;
+	}
   
 section live preview on text
 
