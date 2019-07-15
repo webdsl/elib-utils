@@ -27,16 +27,16 @@ section ajax lib
   		append(String) : StringBuffer
   	}
 	native class javax.servlet.http.HttpServletRequest as HttpServletRequest{
-    	getRequestURL() : StringBuffer
     	getQueryString() : String
 	}
 	
   function requestURL(): String {
-  	var request := getDispatchServlet().getRequest();
+  	var ds := getDispatchServlet();
+  	var request := ds.getRequest();
   	if(request.getQueryString() == null){
-  		return request.getRequestURL().toString();	
+  		return ds.getRequestURL();	
   	} else{
-  		return request.getRequestURL().append("?").append(request.getQueryString()).toString();
-	}
+  		return ds.getRequestURL() + "?" + request.getQueryString();
+  	}
   }
   
