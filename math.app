@@ -44,7 +44,7 @@ module elib/elib-utils/math
   }
   
   function percentage(part: Int, total: Int): Int {
-    return if(total == 0) 0 else (part * 100) / total ;
+    return if(total == 0) 0 else ((part.floatValue() * 100.0) / total.floatValue()).round();
   	// if(total == 0) { return 0; } else {
   	// 	return (part * 100) / total ;
   	// }
