@@ -70,7 +70,7 @@ define ignore-access-control wikiTextPreviewInternal( txt : WikiText, unsafe : B
 page liveWikiTextPreview(){
 	mimetype("text/plain")
 	var toRender := (getRequestParameter("inputText") as WikiText)
-	var scriptId := "preview-" + now().getTime()
+	// var scriptId := "preview-" + now().getTime()
 	wikiTextPreviewInternal(toRender, getRequestParameter("allowUnsafe") != null)
 
 //The following script is not needed anymore (requires WebDSL version > 13 Feb 2017) when using postProcess template, e.g.

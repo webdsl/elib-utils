@@ -18,7 +18,6 @@ section RSS
   // see http://www.rssboard.org/rss-specification for documentation
   
   define rssWrapper(title: String, url: String, feedURL: String, desc: Text, pubDate: DateTime) {
-    var now := now()
     mimetype("application/rss+xml")
     <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
       <channel> 
