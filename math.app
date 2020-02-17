@@ -70,6 +70,12 @@ module elib/elib-utils/math
   	return s;
   }
   
+  function sum(ds: List<Double>): Double {
+  	var s := Double(0.0);
+  	for(d: Double in ds) { s := s + d; }
+  	return s;
+  }
+  
   function and(bs: List<Bool>): Bool {
   	var s := true;
   	for(b: Bool in bs) { s := s && b; }
