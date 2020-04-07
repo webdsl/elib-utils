@@ -31,9 +31,9 @@ native class utils.BuildProperties as BuildProperties {
 define inputWithPreview( txt : Ref<WikiText>, unsafe : Bool, ph : String){
 	var mathjaxHelpHTML := ", <a href='http://docs.mathjax.org/en/latest/mathjax.html'>MathJax</a> enabled, with delimiters: <code>\\\\\\\\( inline \\\\\\\\)</code> and <code>$$ block $$</code>."
 	var liveprevservice := navigate(liveWikiTextPreview())
-	var jsonParams := "[{name:'inputText', value:$('#" + ph + "-wrap textarea').val()}" + ( if(unsafe) ",{name:'allowUnsafe', value:'1'}]" else "]")
+	var jsonParams := "[{name:'inputText', value: textVal}" + ( if(unsafe) ",{name:'allowUnsafe', value:'1'}]" else "]")
 	span[id=ph+"-wrap"]{
-		input( txt )[oninput:="replaceWithoutAction('" + liveprevservice + "', " + jsonParams + ", '" + ph + "');", all attributes]
+		input( txt )[oninput:="var textVal = $('#" + ph + "-wrap textarea').val(); checkForUnsupportedCharacters( textVal ); replaceWithoutAction('" + liveprevservice + "', " + jsonParams + ", '" + ph + "');", all attributes]
 	}
 	div[class="help-block"]{
 		markdownHelpLink " " span[class="hardwraps-info"]{ if(BuildProperties.isWikitextHardwrapsEnabled()){ "New lines are preserved (hardwraps enabled)" } else { "Single new lines are ignored (hardwraps disabled)" } }
