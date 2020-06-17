@@ -7,7 +7,7 @@ module elib/elib-utils/pageindex
   define pageIndex(index : Int, count : Int, perpage : Int) {
     var idx := max(1,index)
     var pages : Int := 1 + count/perpage
-    div[class="pagination pagination-centered"] { list {
+    list[class="pagination pagination-centered"] {
 	    if(pages > 1) { 
 	      if(idx > 1) { 
 	        listitem[class="active"]{ pageIndexLink(idx-1, "Prev") }
@@ -27,7 +27,7 @@ module elib/elib-utils/pageindex
 	        listitem[class="disabled"]{ "Next" }
 	      }
 	    }
-    } }
+    }
   }
   
   function pageIndexIntervals(idx : Int, count : Int, perpage : Int, max: Int, end: Int): List<List<Int>> {
@@ -55,7 +55,7 @@ module elib/elib-utils/pageindex
     //   if(index > pages) { goto ; }
     // }
     if(pages > 1) { 
-      div[class="pagination pagination-centered"] { list {
+      list[class="pagination pagination-centered"] {
         if(idx > 1) { 
           listitem{ pageIndexLink(idx-1, "Prev") }
         } else { 
@@ -77,7 +77,7 @@ module elib/elib-utils/pageindex
         } else { 
           listitem[class="disabled"]{ <a href="#">"Next"</a> }
         }
-      } }
+      }
     }
   }
 
