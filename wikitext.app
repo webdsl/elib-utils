@@ -29,7 +29,7 @@ native class utils.BuildProperties as BuildProperties {
 	static isWikitextHardwrapsEnabled() : Bool
 }
 define inputWithPreview( txt : Ref<WikiText>, unsafe : Bool, ph : String){
-	var mathjaxHelpHTML := ", <a href='http://docs.mathjax.org/en/latest/mathjax.html'>MathJax</a> enabled, with delimiters: <code>\\\\\\\\( inline \\\\\\\\)</code> and <code>$$ block $$</code>."
+	var mathjaxHelpHTML := ", <a href=\\\"http://docs.mathjax.org/en/v2.7-latest/mathjax.html\\\" target=\\\"_blank\\\" title=\\\"Opens in new window\\\">MathJax</a> enabled, with delimiters: <code>\\\\\\\\( inline \\\\\\\\)</code> and <code>$$ block $$</code>."
 	var liveprevservice := navigate(liveWikiTextPreview())
 	var jsonParams := "[{name:'inputText', value: textVal}" + ( if(unsafe) ",{name:'allowUnsafe', value:'1'}]" else "]")
 	span[id=ph+"-wrap"]{
