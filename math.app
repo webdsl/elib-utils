@@ -23,12 +23,22 @@ module elib/elib-utils/math
     //if(i > j) { return i; } else { return j; }
   }
   
+  function max(i : Double, j : Double) : Double {
+    return if(i > j) i else j;
+    //if(i > j) { return i; } else { return j; }
+  }
+  
   function min(i : Int, j : Int) : Int {
     return if(i > j) j else i;
     //if(i > j) { return j; } else { return i; }
   }
 
   function min(i : Float, j : Float) : Float {
+    return if(i > j) j else i;
+    //if(i > j) { return j; } else { return i; }
+  }
+  
+  function min(i : Double, j : Double) : Double {
     return if(i > j) j else i;
     //if(i > j) { return j; } else { return i; }
   }
