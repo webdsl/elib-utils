@@ -2,8 +2,26 @@ module elib/elib-utils/geo
 
 section functions
 
-	function countryList() : List<String> {
-		return [
+  function tryGetCountryString( alias : String ) : String {
+    var countryList := countryList();
+    if( countryList.indexOf( alias ) > 0 ){
+      return alias;
+    } else{
+      var mappings :=  [
+        ["United States", "USA", "America", "United States of America"],
+        ["United Kingdom", "UK", "England"]
+      ];
+      for(m in mappings){
+        if( Or[alias.trim().toLowerCase() == a.trim().toLowerCase() | a in m] ){
+          return m[0];
+        }
+      }
+    }
+    return alias;
+  }
+
+  function countryList() : List<String> {
+    return [
       "Afghanistan",
       "Albania",
       "Algeria",
@@ -201,62 +219,60 @@ section functions
       "Yemen",
       "Zambia",
       "Zimbabwe"
-		];
-	}
-	
-	function USAStatesList() : List<String>{
-		return [
-			"Alabama",
-			"Alaska",
-			"Arizona",
-			"Arkansas",
-			"California",
-			"Colorado",
-			"Connecticut",
-			"Delaware",
-			"Florida",
-			"Georgia",
-			"Hawaii",
-			"Idaho",
-			"Illinois",
-			"Indiana",
-			"Iowa",
-			"Kansas",
-			"Kentucky",
-			"Louisiana",
-			"Maine",
-			"Maryland",
-			"Massachusetts",
-			"Michigan",
-			"Minnesota",
-			"Mississippi",
-			"Missouri",
-			"Montana",
-			"Nebraska",
-			"Nevada",
-			"New Hampshire",
-			"New Jersey",
-			"New Mexico",
-			"New York",
-			"North Carolina",
-			"North Dakota",
-			"Ohio",
-			"Oklahoma",
-			"Oregon",
-			"Pennsylvania",
-			"Rhode Island",
-			"South Carolina",
-			"South Dakota",
-			"Tennessee",
-			"Texas",
-			"Utah",
-			"Vermont",
-			"Virginia",
-			"Washington",
-			"West Virginia",
-			"Wisconsin",
-			"Wyoming"
-		];
-		
-		
-	}
+    ];
+  }
+  
+  function USAStatesList() : List<String>{
+    return [
+      "Alabama",
+      "Alaska",
+      "Arizona",
+      "Arkansas",
+      "California",
+      "Colorado",
+      "Connecticut",
+      "Delaware",
+      "Florida",
+      "Georgia",
+      "Hawaii",
+      "Idaho",
+      "Illinois",
+      "Indiana",
+      "Iowa",
+      "Kansas",
+      "Kentucky",
+      "Louisiana",
+      "Maine",
+      "Maryland",
+      "Massachusetts",
+      "Michigan",
+      "Minnesota",
+      "Mississippi",
+      "Missouri",
+      "Montana",
+      "Nebraska",
+      "Nevada",
+      "New Hampshire",
+      "New Jersey",
+      "New Mexico",
+      "New York",
+      "North Carolina",
+      "North Dakota",
+      "Ohio",
+      "Oklahoma",
+      "Oregon",
+      "Pennsylvania",
+      "Rhode Island",
+      "South Carolina",
+      "South Dakota",
+      "Tennessee",
+      "Texas",
+      "Utah",
+      "Vermont",
+      "Virginia",
+      "Washington",
+      "West Virginia",
+      "Wisconsin",
+      "Wyoming"
+    ];
+  }
