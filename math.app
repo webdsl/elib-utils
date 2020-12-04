@@ -74,15 +74,21 @@ module elib/elib-utils/math
     static longToFloat(Long): Float
   }
   
-  function sum(fs: List<Float>): Float {
-  	var s := 0.0;
-  	for(f: Float in fs) { s := s + f; }
+  function sum(ns: List<Int>): Int {
+  	var s := 0;
+  	for(n: Int in ns) { s := s + n; }
   	return s;
   }
   
-  function sum(ds: List<Double>): Double {
+  function sum(ns: List<Float>): Float {
+  	var s := 0.0;
+  	for(n: Float in ns) { s := s + n; }
+  	return s;
+  }
+  
+  function sum(ns: List<Double>): Double {
   	var s := Double(0.0);
-  	for(d: Double in ds) { s := s + d; }
+  	for(n: Double in ns) { s := s + n; }
   	return s;
   }
   
