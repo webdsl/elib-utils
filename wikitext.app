@@ -1,5 +1,7 @@
 module elib/elib-utils/wikitext
 
+imports elib/elib-bootstrap/icons
+
 access control rules
 rule page liveWikiTextPreview(){ true }
 
