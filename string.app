@@ -1,5 +1,7 @@
 module elib/elib-utils/string
 
+imports elib/elib-utils/math
+
   type String{
     substring(Int,Int):String
   }

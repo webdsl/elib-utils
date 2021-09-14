@@ -1,5 +1,7 @@
 module elib/elib-utils/pageindex
 
+imports elib/elib-utils/math
+
   define span pageIndexLink(i : Int, lab : String) { 
     "no definition of pageIndexLink" 
   }
