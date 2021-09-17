@@ -24,24 +24,24 @@ module elib/elib-utils/string
   }
   
   function lines(x: String): List<String> {
-  	return /[\n]/.split(x);
+    return /[\n]/.split(x);
   }
   
   function prefix(pref: String, lines: List<String>): List<String> {
-  	return [pref + line | line: String in lines];
+    return [pref + line | line: String in lines];
   }
   
   function text(lines: List<String>): String {
-  	var t := "";
-  	for(line: String in lines) { t := t + line + "\n"; }
-  	return t;
+    var t := "";
+    for(line: String in lines) { t := t + line + "\n"; }
+    return t;
   }
   
   function commentOut(comm: String, x: String): String {
-  	// When the text is empty or contains only whitespace,
-  	// do not comment out anything and just return an empty string.
-  	if (isEmptyString(x)) { return ""; }
-  	return text(prefix(comm, lines(x)));
+    // When the text is empty or contains only whitespace,
+    // do not comment out anything and just return an empty string.
+    if (isEmptyString(x)) { return ""; }
+    return text(prefix(comm, lines(x)));
   }
   
   function splitCommaSeparated(x : String) : List<String> {
@@ -108,11 +108,11 @@ module elib/elib-utils/string
   }
   
   function prefixSuffix(s : String, prefixLen : Int, suffixLen : Int) : String{
-  	if(s.length() <= (prefixLen + suffixLen+4)){
-  		return s;
-  	} else {
-  		return prefix(s,prefixLen) + "... " + suffix(s,suffixLen);
-  	}
+    if(s.length() <= (prefixLen + suffixLen+4)){
+      return s;
+    } else {
+      return prefix(s,prefixLen) + "... " + suffix(s,suffixLen);
+    }
   }
   
   function abbreviate(s : String, length : Int) : String {
@@ -137,17 +137,17 @@ module elib/elib-utils/string
   }
     
   function concat(xs: List<String>, sep: String): String {
-  	if(xs.length == 0) { 
-  		return "";
-  	} else {
-  		var x := xs[0];
-  		var i := 1;
-  		while(i < xs.length) {
-  			x := x + sep + xs[i];
-  			i := i + 1;
-  		}
-  		return x;
-  	}
+    if(xs.length == 0) { 
+      return "";
+    } else {
+      var x := xs[0];
+      var i := 1;
+      while(i < xs.length) {
+        x := x + sep + xs[i];
+        i := i + 1;
+      }
+      return x;
+    }
   }
 
   type String{
@@ -168,57 +168,72 @@ module elib/elib-utils/string
     */
   }
   function suffix(s : String, length : Int) : String {
-  	var len := s.length();
-  	return s.substring(s.length()-min(length, len), s.length());
+    var len := s.length();
+    return s.substring(s.length()-min(length, len), s.length());
   }
   
-	function plural(singular : String, num : Int ) : String{
-	  return if(num == 1) singular else singular + "s";
-	}
-	function plural(singular : String, plural : String, num : Int) : String{
-	  return if(num == 1) singular else plural;
-	}
-	function capitalize(name : String) : String{
-	  return if( name.length() > 0 ) name.substring( 0,1 ).toUpperCase() + name.substring( 1, name.length() ) else name;
-	}
+  function plural(singular : String, num : Int ) : String{
+    return if(num == 1) singular else singular + "s";
+  }
+  function plural(singular : String, plural : String, num : Int) : String{
+    return if(num == 1) singular else plural;
+  }
+  function capitalize(name : String) : String{
+    return if( name.length() > 0 ) name.substring( 0,1 ).toUpperCase() + name.substring( 1, name.length() ) else name;
+  }
+  
+  function enumerate(strings : [String]) : String{
+    var len := strings.length;
+    var result := "";
+    for(i : Int from 0 to len){
+      if( len - i == 2 ){
+        result := result + strings[i] + " and ";
+      } else if( len - i > 2 ){
+        result := result + strings[i] + ", ";
+      } else {
+        result := result + strings[i];
+      }
+    }
+    return result;
+  }
   
 section live preview on text
 
 define inputWithPreview( txt : Ref<Text> ){
-	inputWithPreview(txt, false)
+  inputWithPreview(txt, false)
 }
 
 define inputWithPreview( txt : Ref<Text>, rawoutput : Bool ){
-	var owningEntity := txt.getEntity();
-	var ph := if(owningEntity.version < 1) "html-preview" else "ph-" + (if(owningEntity != null) owningEntity.id.toString() else "");
-	inputWithPreview( txt, rawoutput, ph )[all attributes]
+  var owningEntity := txt.getEntity();
+  var ph := if(owningEntity.version < 1) "html-preview" else "ph-" + (if(owningEntity != null) owningEntity.id.toString() else "");
+  inputWithPreview( txt, rawoutput, ph )[all attributes]
 }
 
 define inputWithPreview( txt : Ref<Text>, rawoutput : Bool, ph : String){
-	action ignore-validation updatePreview(){
-		replace( ""+ph, livePreviewInternal(txt, rawoutput) );
-		rollback();
-	}
-	input( txt )[oninput:=updatePreview(), all attributes]
+  action ignore-validation updatePreview(){
+    replace( ""+ph, livePreviewInternal(txt, rawoutput) );
+    rollback();
+  }
+  input( txt )[oninput:=updatePreview(), all attributes]
 }
 
 define livePreview( txt : Ref<Text> ){
-	livePreview(txt, false)
+  livePreview(txt, false)
 }
 
 define livePreview( txt : Ref<Text>,  rawoutput : Bool ){
-	var owningEntity := txt.getEntity();
-	var ph := if(owningEntity.version < 1) "html-preview" else "ph-" + (if(owningEntity != null) owningEntity.id.toString() else "");
-	livePreview(txt, rawoutput, ph)	
+  var owningEntity := txt.getEntity();
+  var ph := if(owningEntity.version < 1) "html-preview" else "ph-" + (if(owningEntity != null) owningEntity.id.toString() else "");
+  livePreview(txt, rawoutput, ph)  
 }
 define livePreview( txt : Ref<Text>, rawoutput : Bool, ph : String){
-	placeholder ""+ph{ livePreviewInternal( txt, rawoutput ) }
+  placeholder ""+ph{ livePreviewInternal( txt, rawoutput ) }
 }
 
 define ajax ignore-access-control livePreviewInternal( txt : Text, rawoutput : Bool ){
-	if( rawoutput ){
-		rawoutput( txt )
-	} else {
-		output( txt )
-	}
+  if( rawoutput ){
+    rawoutput( txt )
+  } else {
+    output( txt )
+  }
 }
