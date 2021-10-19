@@ -1,5 +1,7 @@
 module elib/elib-utils/modal-dialog
 
+imports elib/elib-utils/lib
+
   define modalDialogPopup(context: String) {
     action close() { replace(context+"", empty); }
     <div class="modalDialogBG">
