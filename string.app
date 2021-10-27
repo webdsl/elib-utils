@@ -2,9 +2,9 @@ module elib/elib-utils/string
 
 imports elib/elib-utils/math
 
-  type String{
-    substring(Int,Int):String
-  }
+//  type String{
+//    substring(Int,Int):String
+//  }
 
   entity StringPair { 
     left :: String
@@ -152,10 +152,10 @@ imports elib/elib-utils/math
   	}
   }
 
-  type String{
-    substring(Int):String
-    substring(Int,Int):String
-  }
+//  type String{
+//    substring(Int):String
+//    substring(Int,Int):String
+//  }
 
   function prefix(s : String, length : Int) : String {
     return s.substring(0, length);
