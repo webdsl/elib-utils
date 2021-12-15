@@ -21,22 +21,22 @@ section ajax lib
 
   define ajax ignore-access-control empty(){}
   
-  	native class java.lang.StringBuffer as StringBuffer{
-  	  constructor(String)
-  		toString() : String
-  		append(String) : StringBuffer
-  	}
-	native class javax.servlet.http.HttpServletRequest as HttpServletRequest{
-    	getQueryString() : String
-	}
-	
-  function requestURL(): String {
-  	var ds := getDispatchServlet();
-  	var request := ds.getRequest();
-  	if(request.getQueryString() == null){
-  		return ds.getRequestURL();	
-  	} else{
-  		return ds.getRequestURL() + "?" + request.getQueryString();
-  	}
+  native class java.lang.StringBuffer as StringBuffer{
+    constructor(String)
+    toString() : String
+    append(String) : StringBuffer
   }
-  
+
+  native class javax.servlet.http.HttpServletRequest as HttpServletRequest{
+    getQueryString() : String
+  }
+
+  function requestURL(): String {
+    var ds := getDispatchServlet();
+    var request : HttpServletRequest := ds.getRequest();
+    if(request.getQueryString() == null){
+      return ds.getRequestURL();
+    } else{
+      return ds.getRequestURL() + "?" + request.getQueryString();
+    }
+  }
