@@ -9,7 +9,9 @@ section functions
     } else{
       var mappings :=  [
         ["United States", "USA", "America", "United States of America"],
-        ["United Kingdom", "UK", "England"]
+        ["United Kingdom", "UK", "England"],
+        ["Democratic Republic of the Congo", "Congo, The Democratic Republic of The"],
+        ["Republic of the Congo", "Congo, The Republic of The"]
       ];
       for(m in mappings){
         if( Or[alias.trim().toLowerCase() == a.trim().toLowerCase() | a in m] ){
