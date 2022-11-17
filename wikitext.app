@@ -15,13 +15,13 @@ section input wikitext with a preview
 */
 
 define inputWithPreview( txt : Ref<WikiText> ){
-  inputWithPreview( txt, false )[all attributes]
+  inputWithPreview( txt, false )[all attributes]{ elements }
 }
 
 define inputWithPreview( txt : Ref<WikiText>, unsafe : Bool){
   var owningEntity := txt.getEntity()
   var ph := if(owningEntity == null || owningEntity.version < 1) "wikitext-preview" else "ph-" + owningEntity.id.toString() + "-" + txt.getReflectionProperty().getName()
-  inputWithPreview( txt, unsafe, ph )[all attributes]
+  inputWithPreview( txt, unsafe, ph )[all attributes]{ elements }
   
 }
 
@@ -44,8 +44,11 @@ define inputWithPreview( txt : Ref<WikiText>, unsafe : Bool, ph : String){
   }
   
   span[id=ph+"-wrap"]{
-    input( txt )[oninput:="var textVal = $('#" + ph + "-wrap textarea').val(); checkForUnsupportedCharacters( textVal ); replaceWithoutAction('" + liveprevservice + "', " + jsonParams + ", '" + ph + "');", all attributes]
+    input( txt )[oninput:="var textVal = $('#" + ph + "-wrap textarea').val(); checkForUnsupportedCharacters( textVal ); replaceWithoutAction('" + liveprevservice + "', " + jsonParams + ", '" + ph + "');"  + attribute("oninput"), all attributes except "oninput"]
   }
+  
+  elements
+  
   div[class="help-block"]{
     markdownHelpLink " " hardwrapsInfo(hardwrapsAttr)
     span[id="mathjax-"+id]{}
