@@ -5,7 +5,7 @@ rule page liveWikiTextPreview(){ true }
 
 section templates
 
-define outputRelaxed(s: WikiText){ rawoutput(s) }
+template outputRelaxed(s: WikiText){ rawoutput(s) }
 
 section input wikitext with a preview
 /*
@@ -14,11 +14,11 @@ section input wikitext with a preview
    put wikiTextPreview( someEnt.someWikiTextProp ) at the area where you want the preview to be displayed
 */
 
-define inputWithPreview( txt : Ref<WikiText> ){
+template inputWithPreview( txt : Ref<WikiText> ){
   inputWithPreview( txt, false )[all attributes]{ elements }
 }
 
-define inputWithPreview( txt : Ref<WikiText>, unsafe : Bool){
+template inputWithPreview( txt : Ref<WikiText>, unsafe : Bool){
   var owningEntity := txt.getEntity()
   var ph := if(owningEntity == null || owningEntity.version < 1) "wikitext-preview" else "ph-" + owningEntity.id.toString() + "-" + txt.getReflectionProperty().getName()
   inputWithPreview( txt, unsafe, ph )[all attributes]{ elements }
@@ -27,8 +27,15 @@ define inputWithPreview( txt : Ref<WikiText>, unsafe : Bool){
 
 native class utils.BuildProperties as BuildProperties {
   static isWikitextHardwrapsEnabled() : Bool
+  
 }
-define inputWithPreview( txt : Ref<WikiText>, unsafe : Bool, ph : String){
+
+template inputWithPreview( txt : Ref<WikiText>, unsafe : Bool, ph : String){
+	//Just a wrapper to make this overridable, to hook something in
+	inputWithPreview_internal( txt, unsafe, ph )[all attributes]
+}
+
+template inputWithPreview_internal( txt : Ref<WikiText>, unsafe : Bool, ph : String){
   var mathjaxHelpHTML := ", <a href=\\\"http://docs.mathjax.org/en/v2.7-latest/mathjax.html\\\" target=\\\"_blank\\\" title=\\\"Opens in new window\\\">MathJax</a> enabled, with delimiters: <code>\\\\\\\\( inline \\\\\\\\)</code> and <code>$$ block $$</code>."
   var liveprevservice := navigate(liveWikiTextPreview())
   var jsonParams := ""
@@ -77,20 +84,20 @@ template hardwrapsInfo( hardwrapsAttr : String ){
   }
 }
 
-define wikiTextPreview( txt : Ref<WikiText> ){
+template wikiTextPreview( txt : Ref<WikiText> ){
   wikiTextPreview( txt, false )
 
 }
-define wikiTextPreview( txt : Ref<WikiText>, unsafe : Bool ){
+template wikiTextPreview( txt : Ref<WikiText>, unsafe : Bool ){
   var owningEntity := txt.getEntity()
   var ph := if(owningEntity == null || owningEntity.version < 1) "wikitext-preview" else "ph-" + owningEntity.id.toString() + "-" + txt.getReflectionProperty().getName()
   wikiTextPreview(txt, unsafe, ph)[all attributes]
 }
-define wikiTextPreview( txt : Ref<WikiText>, unsafe : Bool, ph : String){
+template wikiTextPreview( txt : Ref<WikiText>, unsafe : Bool, ph : String){
   placeholder ""+ph{  wikiTextPreviewInternal( txt, unsafe )[all attributes] } 
 }
 
-define ignore-access-control wikiTextPreviewInternal( txt : WikiText, unsafe : Bool){
+ignore-access-control template wikiTextPreviewInternal( txt : WikiText, unsafe : Bool){
   if( unsafe ){
     rawoutput( txt )[all attributes]
   } else {
