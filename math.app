@@ -44,8 +44,13 @@ module elib/elib-utils/math
   }
     
   function mod(i : Int, j : Int) : Int {
-  	validate(j != 0, "modulo zero undefined");
+    validate(j != 0, "modulo zero undefined");
     return i - (j * (i / j));
+  }
+  //unlike `mod`, `mod2` will always return the _positive_ remainder
+  function mod2(i : Int, j : Int) : Int {
+    var m := mod(i,j);
+    return if(m < 0) m + j else m;
   }
   
   function inc(i: Int, b: Bool): Int {
