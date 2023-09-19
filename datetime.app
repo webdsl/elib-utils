@@ -67,7 +67,6 @@ module elib/elib-utils/datetime
 
   function nextday(time : DateTime) : DateTime {
     var nextday : DateTime := now();
-    //log(" time == null: " + (time == null));
     nextday.setTime(time.getTime() + days(1L));
     return nextday;
   }
@@ -98,7 +97,6 @@ module elib/elib-utils/datetime
       } else {
         var next := start;
         while(!next.after(end)) {
-          //log("next day: " + next);
           days.add(next);
           next := nextday(next);
         }

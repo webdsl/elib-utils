@@ -18,7 +18,6 @@ section markup
   
   template hrule(){ <hr /> }
   
-//  template par() { <p> elements </p> }
 
 section dynamic styling
 
@@ -41,12 +40,6 @@ template contrastText(jquerySelector : String){
 
 section forms
 
-  // define formEntry(l: String){ 
-  //   <div class="formentry">
-  //     <span class="formentrylabel">output(l)</span>
-  //     elements
-  //   </div>
-  // }
   
   define save() { submit action{ } { "Save" } }
 
