@@ -74,23 +74,8 @@ module elib/elib-utils/string
     return /[^a-zA-Z0-9:\-\.]/.replaceAll("", url);
   }
 
-  function prefix(x : String) : String {
-    /*
-    var p : String := "";
-    var chars : List<String> := x.split();
-    for(i : Int from 0 to chars.length) { p := p + chars.get(i); }
-    return p;
-    */
-    return x;
-  }
-
   function substring(x : String, i : Int, j : Int) : String {
-    /*
-    var p : String := "";
-    var chars : List<String> := x.split();
-    for(i : Int from max(0, min(i, chars.length)) to min(j, chars.length)) { p := p + chars.get(i); }
-    return p;
-    */
+
     return x.substring(i,j);
   }
   
@@ -157,15 +142,7 @@ module elib/elib-utils/string
 
   function prefix(s : String, length : Int) : String {
     return s.substring(0, length);
-    /*
-    if(s.length() <= length) {
-      return s;
-    } else {
-      var sChar := s.split();
-      sChar.removeAt(length);
-      return prefix(sChar.concat(), length);
-    }
-    */
+
   }
   function suffix(s : String, length : Int) : String {
     var len := s.length();
