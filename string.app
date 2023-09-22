@@ -27,22 +27,20 @@ module elib/elib-utils/string
     return /[\n]/.split(x);
   }
   
-  function prefix(pref: String, lines: List<String>): List<String> {
-    return [pref + line | line: String in lines];
-  }
-  
   function text(lines: List<String>): String {
     var t := "";
     for(line: String in lines) { t := t + line + "\n"; }
     return t;
   }
   
-  function commentOut(comm: String, x: String): String {
+  function commentOut(comm: String, x: String): String { return commentOut(comm, "", x); }
+  function commentOut(commStart : String, commEnd : String, x : String) : String {
     // When the text is empty or contains only whitespace,
     // do not comment out anything and just return an empty string.
     if (isEmptyString(x)) { return ""; }
-    return text(prefix(comm, lines(x)));
+    return [commStart + line + commEnd | line in lines(x)].concat("\n");
   }
+
   
   function splitCommaSeparated(x : String) : List<String> {
       return [removeTrailingSpaces(y).toLowerCase() | y : String in x.split(",") where !isEmptyString(y)];
