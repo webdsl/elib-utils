@@ -1,11 +1,11 @@
 module elib/elib-utils/math
 
   function iff(a: Bool, b: Bool): Bool {
-  	return (a && b) || (!a && !b);
+    return (a && b) || (!a && !b);
   }
   
   function implies(a: Bool, b: Bool): Bool {
-  	return !a || b;
+    return !a || b;
   }
 
   function abs(i : Int) : Int {
@@ -55,7 +55,7 @@ module elib/elib-utils/math
   }
   
   function round1(f: Float): Float{
-  	return (10.0 * f).round().floatValue() / 10.0;
+    return (10.0 * f).round().floatValue() / 10.0;
   }
   
   native class org.webdsl.tools.MedianList as MedianList {
