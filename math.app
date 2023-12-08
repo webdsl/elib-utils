@@ -69,25 +69,101 @@ module elib/elib-utils/math
   }
   
   function sum(ns: List<Int>): Int {
-  	var s := 0;
-  	for(n: Int in ns) { s := s + n; }
-  	return s;
+    var s := 0;
+    for(n: Int in ns) { s := s + n; }
+    return s;
   }
   
   function sum(ns: List<Float>): Float {
-  	var s := 0.0;
-  	for(n: Float in ns) { s := s + n; }
-  	return s;
+    var s := 0.0;
+    for(n: Float in ns) { s := s + n; }
+    return s;
   }
   
   function sum(ns: List<Double>): Double {
-  	var s := Double(0.0);
-  	for(n: Double in ns) { s := s + n; }
-  	return s;
+    var s := Double(0.0);
+    for(n: Double in ns) { s := s + n; }
+    return s;
   }
   
   function and(bs: List<Bool>): Bool {
-  	var s := true;
-  	for(b: Bool in bs) { s := s && b; }
-  	return s;
+    var s := true;
+    for(b: Bool in bs) { s := s && b; }
+    return s;
+  }
+
+  // Greatest common divisor of two numbers
+  // time complexity: O(log(n))
+  function gcd(a : Int, b : Int) : Int {
+    if (a == 0) { return b; }
+    return gcd(b % a, a);
+  }
+
+  function gcd(elements : [Int]) : Int {
+    if (elements.length == 0) { return -1; }
+    var result := elements[0];
+    for (n in elements) {
+      result := gcd(result, n);
+      if (result == 1) { return result; }
+    }
+    return result;
+  }
+
+  /*
+   * Least common multiple of two numbers
+   * time Complexity: O(log(n))
+   */
+  function lcm(a : Long, b : Long) : Long {
+    return lcm([a,b]);
+  }
+
+  /*
+   * Least common multiple of a collection of numbers
+   * "inspired by" *cough* www.geeksforgeeks.org/lcm-of-given-array-elements/
+   * time Complexity: O(n * log(n)) where n is the size of the collection
+   */
+  function lcm(elements : [Long]): Long {
+    var lcm := 1L;
+    var divisor := 2L;
+
+    while (true) {
+      var counter := 0L;
+      var divisible := false;
+
+      for (i : Int from 0 to elements.length) {
+
+        if (elements[i] == 0L) {
+          return 0L;
+        } else if (elements[i] < 0L) {
+          elements.set(i, elements[i] * (-1L));
+        }
+
+        if (elements[i] == 1L) {
+          counter := counter + 1L;
+        }
+
+        if (elements[i] % divisor == 0L) {
+          divisible := true;
+          elements.set(i, elements[i] / divisor);
+        }
+      }
+
+      if (divisible) {
+        lcm := lcm * divisor;
+      } else {
+        divisor := divisor + 1L;
+      }
+
+      if (counter == elements.length) {
+        return lcm;
+      }
+    }
+  }
+
+  function lcm(a : Int, b : Int) : Int {
+    return lcm(a.toString().parseLong(), b.toString().parseLong()).intValue();
+  }
+
+  function lcm(elements : [Int]): Int {
+    return lcm([n.toString().parseLong() | n in elements]).intValue();
   }
