@@ -40,7 +40,7 @@ section functions
   function countryList() : List<String> {
     return [
       "Afghanistan",
-      "Ãland Islands",
+      "Ã…land Islands",
       "Albania",
       "Algeria",
       "American Samoa",
