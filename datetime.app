@@ -144,6 +144,14 @@ module elib/elib-utils/datetime
       2025{ return 110; }
       2026{ return 95;  }
       2027{ return 87;  }
+      2028{ return 107;  }
+      2029{ return 91;  }
+      2030{ return 111;  }
+      2031{ return 103;  }
+      2032{ return 88;  }
+      2033{ return 107;  }
+      2034{ return 99;  }
+      2035{ return 84;  }
       default{ return -1; }
     }
   }
