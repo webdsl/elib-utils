@@ -32,7 +32,7 @@ native class utils.BuildProperties as BuildProperties {
 
 template inputWithPreview( txt : Ref<WikiText>, unsafe : Bool, ph : String){
 	//Just a wrapper to make this overridable, to hook something in
-	inputWithPreview_internal( txt, unsafe, ph )[all attributes]
+	inputWithPreview_internal( txt, unsafe, ph )[all attributes]{ elements }
 }
 
 template inputWithPreview_internal( txt : Ref<WikiText>, unsafe : Bool, ph : String){
