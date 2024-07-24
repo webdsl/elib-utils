@@ -167,3 +167,22 @@ module elib/elib-utils/math
   function lcm(elements : [Int]): Int {
     return lcm([n.toString().parseLong() | n in elements]).intValue();
   }
+
+  // Function to compute the binomial coefficient "n choose k"
+  function binomialCoefficient(n : Int, k : Int) : Int {
+    if (n < 0 || k < 0 || k > n) {
+      // Handle invalid cases
+      return 0;
+    }
+    var k_ := k;
+    if (k > n - k) {
+      k_ := n - k;
+    }
+    var result := 1;
+    for (i : Int from 0 to k_) {
+      result := result * (n - i);
+      result := result / (i + 1);
+    }
+
+    return result;
+  }
