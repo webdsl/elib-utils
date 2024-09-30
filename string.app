@@ -147,6 +147,14 @@ module elib/elib-utils/string
     return s.substring(s.length()-min(length, len), s.length());
   }
   
+  function numPlural(num : Int, singular : String) : String{
+    return if(num == 1) "1 " + singular else num + " " + singular + "s";
+  }
+  
+  function numPlural(num : Int, singular : String, plural : String) : String{
+    return if(num == 1) "1 " + singular else num + " " + plural;
+  }
+  
   function plural(singular : String, num : Int ) : String{
     return if(num == 1) singular else singular + "s";
   }
