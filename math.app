@@ -57,6 +57,9 @@ module elib/elib-utils/math
   function round1(f: Float): Float{
     return (10.0 * f).round().floatValue() / 10.0;
   }
+  function roundToHalf(f : Float) : Float{
+    return (2.0 * f).round().floatValue() / 2.0;
+  }
   
   native class org.webdsl.tools.MedianList as MedianList {
     insert(Float)
