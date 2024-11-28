@@ -220,3 +220,30 @@ define ajax ignore-access-control livePreviewInternal( txt : Text, rawoutput : B
     output( txt )
   }
 }
+
+
+section view highlighted diff for 2 Strings 
+
+template diffView(name1 : String, name2 : String, text1 : String, text2 :String){
+  includeJS("https://cdn.jsdelivr.net/npm/diff@7.0.0/dist/diff.min.js")
+  includeJS("https://cdn.jsdelivr.net/npm/diff2html/bundles/js/diff2html.min.js")
+  includeCSS("https://cdn.jsdelivr.net/npm/diff2html/bundles/css/diff2html.min.css")
+    
+  div[id=id]
+
+  <script>
+    const text1 = "~(text1.escapeJavaScript())";
+    const text2 = "~(text2.escapeJavaScript())";
+    const name1 = "~(name1.escapeJavaScript())";
+    const name2 = "~(name2.escapeJavaScript())";
+  
+    // Generate the diff
+    const diff = Diff.createTwoFilesPatch(name1, name2, text1, text2);
+  
+    // Render the diff as HTML
+    const diffHtml = Diff2Html.html(diff, { drawFileList: false });
+  
+    // Display the diff
+    document.getElementById("~id").innerHTML = diffHtml;
+  </script>
+}
