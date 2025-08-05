@@ -51,7 +51,11 @@ template inputWithPreview_internal( txt : Ref<WikiText>, unsafe : Bool, ph : Str
   }
   
   span[id=ph+"-wrap"]{
-    input( txt )[oninput:="var textVal = $('#" + ph + "-wrap textarea').val(); checkForUnsupportedCharacters( textVal ); replaceWithoutAction('" + liveprevservice + "', " + jsonParams + ", '" + ph + "');"  + attribute("oninput"), all attributes except "oninput"]
+    if(BuildProperties.isUnicodeSupported()){
+      input( txt )[oninput:="var textVal = $('#" + ph + "-wrap textarea').val(); replaceWithoutAction('" + liveprevservice + "', " + jsonParams + ", '" + ph + "');"  + attribute("oninput"), all attributes except "oninput"]
+    } else {
+      input( txt )[oninput:="var textVal = $('#" + ph + "-wrap textarea').val(); checkForUnsupportedCharacters( textVal ); replaceWithoutAction('" + liveprevservice + "', " + jsonParams + ", '" + ph + "');"  + attribute("oninput"), all attributes except "oninput"]
+    }
   }
   
   elements
